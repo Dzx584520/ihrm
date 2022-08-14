@@ -2,7 +2,7 @@ package com.company.ihrm.service;
 
 import com.company.ihrm.dao.CompanyDao;
 import com.ihrm.common.utils.IdWorker;
-import com.company.ihrm.entity.Company;
+import com.ihrm.doman.company.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

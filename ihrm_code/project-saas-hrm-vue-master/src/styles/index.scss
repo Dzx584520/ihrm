@@ -130,6 +130,10 @@ code {
     font-weight: 600;
   }
 }
+.main{
+  background-color:white;
+  margin: 15px;
+}
 
 //main-container全局样式
 .main-container {
@@ -140,9 +144,9 @@ code {
   padding: 20px;
 }
 
-// .dashboard-container {
-//   background: #f0f2f5;
-// }
+.dashboard-container {
+  background: #f0f2f5;
+}
 
 .components-container {
   margin: 30px 50px;
