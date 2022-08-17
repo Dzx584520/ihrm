@@ -1,6 +1,6 @@
-package com.company.ihrm.service;
+package com.ihrm.company.service;
 
-import com.company.ihrm.dao.CompanyDao;
+import com.ihrm.company.dao.CompanyDao;
 import com.ihrm.common.utils.IdWorker;
 import com.ihrm.doman.company.Company;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.company.ihrm.dao;
+package com.ihrm.company.dao;
 
 import com.ihrm.doman.company.Department;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,7 @@
 package com.ihrm.doman.company.response;
 
-import com.ihrm.doman.company.Company;
 import com.ihrm.doman.company.Department;
+import com.ihrm.doman.company.Company;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class DeptListResult {
     private String companyManage;
     private List<Department> deptList;
 
-    public DeptListResult(Company company,List deptList){
+    public DeptListResult(Company company, List deptList){
         this.companyId = company.getId();
         this.companyName = company.getName();
         this.companyManage = company.getLegalRepresentative();//公司联系人
