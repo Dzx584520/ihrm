@@ -17,8 +17,8 @@ export default {
       tmpMap[sNodes[i].id] = sNodes[i];
     }
     for (i = 0, l = sNodes.length; i < l; i++) {
-      var p = tmpMap[sNodes[i].pid];
-      if (p && sNodes[i].id != sNodes[i].pid) {
+      var p = tmpMap[sNodes[i].parentId];
+      if (p && sNodes[i].id != sNodes[i].parentId) {
         var children = this.nodeChildren(p);
         if (!children) {
           children = this.nodeChildren(p, []);

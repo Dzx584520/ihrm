@@ -11,6 +11,7 @@ import com.ihrm.doman.company.response.DeptListResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -33,6 +34,7 @@ public class DepartmentController extends BaseController {
     public Result save(@RequestBody Department department) {
         // 1.设置保存的企业id
         department.setCompanyId(companyId);
+        department.setCreateTime(new Date());
         departmentService.save(department);
         return new Result(ResultCode.SUCCESS);
     }
