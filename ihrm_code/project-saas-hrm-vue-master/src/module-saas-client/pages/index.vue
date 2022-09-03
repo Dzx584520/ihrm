@@ -14,8 +14,8 @@
             <el-switch
               disabled
               v-model="scope.row.status"
-              inactive-value="0"
-              active-value="1"
+              :inactive-value="0"
+              :active-value="1"
               active-color="#13ce66"
               inactive-color="#ff4949">
             </el-switch>
