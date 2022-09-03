@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 权限实体类
+ */
 @Entity
 @Table(name = "pe_role")
 @Getter

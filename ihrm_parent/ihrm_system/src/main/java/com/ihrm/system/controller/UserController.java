@@ -95,4 +95,15 @@ public class UserController extends BaseController {
         userService.deleteById(id);
         return new Result(ResultCode.SUCCESS);
     }
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/user/updateStatusById/{id}",method = RequestMethod.POST)
+    public Result updateStatus(@PathVariable(value = "id")String id){
+        userService.updateStatusById(id);
+        return new Result(ResultCode.SUCCESS);
+    }
 }

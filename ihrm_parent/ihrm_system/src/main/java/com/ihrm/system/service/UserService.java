@@ -18,6 +18,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserService extends BaseService {
@@ -99,4 +100,20 @@ public class UserService extends BaseService {
         userDao.deleteById(id);
     }
 
+    /**
+     * 修改用户状态
+     * @param id
+     */
+    public void updateStatusById(String id) {
+        User user = userDao.findById(id).get();
+
+        if(!StringUtils.isEmpty(user.getEnableState())){
+            if(user.getEnableState() == 1){
+                user.setEnableState(0);
+            } else {
+                user.setEnableState(1);
+            }
+        }
+        userDao.save(user);
+    }
 }
