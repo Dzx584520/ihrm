@@ -22,6 +22,7 @@ import saasClient from '@/module-saas-client/' // 面板
 import departments from '@/module-departments/' // 部门管理
 import employees from '@/module-employees' // 员工管理
 import role from '@/module-settings' // 权限管理
+import permissions from '@/module-permissions' // 
 
 import tools from './utils/common.js'
 Vue.prototype.$tools = tools
@@ -33,6 +34,7 @@ Vue.use(saasClient,store)
 Vue.use(departments,store)
 Vue.use(employees,store)
 Vue.use(role,store)
+Vue.use(permissions,store)
 
 
 

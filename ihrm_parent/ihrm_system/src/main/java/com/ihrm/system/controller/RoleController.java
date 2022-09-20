@@ -5,10 +5,14 @@ import com.ihrm.common.entity.PageResult;
 import com.ihrm.common.entity.Result;
 import com.ihrm.common.entity.ResultCode;
 import com.ihrm.doman.system.Role;
+import com.ihrm.doman.system.response.RoleResult;
 import com.ihrm.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -64,8 +68,26 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/role/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable("id") String id) {
         Role role = roleService.findById(id);
-        return new Result(ResultCode.SUCCESS,role);
+        RoleResult roleResult = new RoleResult(role);
+        return new Result(ResultCode.SUCCESS,roleResult);
     }
 
-
+    /**
+     * 分配角色权限
+     * @return
+     */
+    @RequestMapping(value = "/role/assignPrem",method = RequestMethod.PUT)
+    public Result assignRoles(@RequestBody Map<String,Object> map){
+        // 获取被分配用户id
+        String roleId = (String) map.get("roleId");
+        List<String> ids = (List<String>) map.get("ids");
+        roleService.assignRoles(roleId,ids);
+        // 2.获取到角色的id列表
+        return new Result(ResultCode.SUCCESS);
+    }
+    @RequestMapping(value="/role/list" ,method=RequestMethod.GET)
+    public Result findAll() throws Exception {
+        List<Role> roleList = roleService.findAll(companyId);
+        return new Result(ResultCode.SUCCESS,roleList);
+    }
 }

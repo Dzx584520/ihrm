@@ -1,7 +1,13 @@
 package com.ihrm.system.service;
 
+import com.ihrm.common.service.BaseService;
 import com.ihrm.common.utils.IdWorker;
+import com.ihrm.common.utils.PermissionConstants;
+import com.ihrm.doman.system.Permission;
+import com.ihrm.doman.system.PermissionApi;
 import com.ihrm.doman.system.Role;
+import com.ihrm.system.dao.PermissionApiDao;
+import com.ihrm.system.dao.PermissionDao;
 import com.ihrm.system.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,16 +19,24 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class RoleService {
+public class RoleService extends BaseService {
 
     @Autowired
     private IdWorker idWorker;
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private PermissionDao permissionDao;
+
+    @Autowired
+    private PermissionApiDao permissionApiDao;
 
 
     /**
@@ -70,5 +84,26 @@ public class RoleService {
             }
         };
         return  roleDao.findAll(specification, PageRequest.of(page-1, size));
+    }
+
+    /**
+     * 分配权限
+     * @param roleId
+     * @param ids
+     */
+    public void assignRoles(String roleId, List<String> ids) {
+        Role role = roleDao.findById(roleId).get();
+        Set<Permission> permis = new HashSet<>();
+        for (String id : ids) {
+            Permission permission = permissionDao.findById(id).get();
+            List<Permission> apiList = permissionDao.findByTypeAndPid(PermissionConstants.PY_API, permission.getId());
+            permis.addAll(apiList);
+            permis.add(permission);
+        }
+        role.setPermissions(permis);
+        roleDao.save(role);
+    }
+    public List<Role> findAll(String companyId) {
+        return roleDao.findAll(getSpec(companyId));
     }
 }

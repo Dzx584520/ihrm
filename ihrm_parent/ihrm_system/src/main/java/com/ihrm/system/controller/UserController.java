@@ -8,6 +8,7 @@ import com.ihrm.company.service.CompanyService;
 import com.ihrm.doman.company.Company;
 import com.ihrm.doman.company.response.DeptListResult;
 import com.ihrm.doman.system.User;
+import com.ihrm.doman.system.response.UserResult;
 import com.ihrm.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,7 +70,8 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable(value = "id")String id){
         User user = userService.findById(id);
-        return new Result(ResultCode.SUCCESS,user);
+        UserResult result = new UserResult(user);
+        return new Result(ResultCode.SUCCESS,result);
     }
 
     /**
@@ -97,7 +99,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 删除用户
+     * 修改用户状态
      * @param id
      * @return
      */
@@ -106,4 +108,19 @@ public class UserController extends BaseController {
         userService.updateStatusById(id);
         return new Result(ResultCode.SUCCESS);
     }
+
+    /**
+     * 分配用户角色
+     * @return
+     */
+    @RequestMapping(value = "/user/assignRoles",method = RequestMethod.PUT)
+    public Result assignRoles(@RequestBody Map<String,Object> map){
+        // 获取被分配用户id
+        String id = (String) map.get("id");
+        List<String> ids = (List<String>) map.get("roleIds");
+        userService.assignRoles(id,ids);
+        // 2.获取到角色的id列表
+        return new Result(ResultCode.SUCCESS);
+    }
+
 }

@@ -72,7 +72,7 @@
         <!-- 新增员工弹层 -->
         <component v-bind:is="employeesAdd" ref="addUser" @doQuery="doQuery"></component>
         <!--分配角色组件 -->
-
+        <component v-bind:is="addRole" ref="addRole"></component>
       </el-card>
     </div>
   </div>
@@ -83,16 +83,18 @@ import constantApi from '@/api/constant/employees'
 import {list,remove,updateStatusById} from "@/api/base/users"
 import PageTool from './../../components/page/page-tool'
 import employeesAdd from './../components/add'
+import addRole from './../components/addRole'
 export default {
   name: 'employeesList',
   components: {
-    PageTool,employeesAdd
+    PageTool,employeesAdd,addRole
   },
   data() {
     return {
       employeesAdd: 'employeesAdd',
       baseData: constantApi,
       dataList: [],
+      addRole: 'addRole',
       counts: '',
       requestParameters:{
         page: 1,
@@ -146,6 +148,9 @@ export default {
               this.doQuery();
             })
         })
+    },
+    handleRole(item) {
+      this.$refs.addRole.toAssignPrem(item.id)
     }
   },
   // 创建完毕状态

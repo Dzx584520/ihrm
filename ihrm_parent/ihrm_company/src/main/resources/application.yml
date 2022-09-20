@@ -5,9 +5,9 @@ spring:
     name: ihrm-company #指定服务名
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://124.71.60.41:3306/ihrm?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/ihrm?useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
+    password: root
   jpa:
     database: MySQL
     show-sql: true

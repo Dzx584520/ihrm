@@ -59,7 +59,7 @@
 
 <script>
 import {list,add,update,remove,detail,assignPrem} from "@/api/base/role"
-// import * as permApi from "@/api/base/permissions"
+import * as permApi from "@/api/base/permissions"
 import commonApi from "@/utils/common"
 import PageTool from './../../components/page/page-tool'
 var _this = null
@@ -84,25 +84,21 @@ export default {
   },
   methods: {
     assignPrem() {
-      // console.log(this.$refs.tree.getCheckedKeys())
-      // assignPrem({roleId:this.formData.id,ids:this.$refs.tree.getCheckedKeys()}).then(res => {
-      //    this.$message({message:res.data.message,type:res.data.success?"success":"error"});
-      //     this.permFormVisible=false
-      // })
+      console.log(this.$refs.tree.getCheckedKeys())
+      assignPrem({roleId:this.formData.id,ids:this.$refs.tree.getCheckedKeys()}).then(res => {
+         this.$message({message:res.data.message,type:res.data.success?"success":"error"});
+          this.permFormVisible=false
+      })
     },
     handlerPerm(obj) {
        detail({id:obj.id}).then(res=>{
-         this.formData = res.data.data;
-         if(this.formData.menusIds != null) {
-            this.checkNodes = this.formData.menusIds.split(",")
-         }
-         if(this.formData.pointIds != null) {
-          this.checkNodes.push(this.formData.pointIds.split(","))
-         }
-          // permApi.list({type:0,pid:null}).then(res => {
-          //   this.treeData = commonApi.transformTozTreeFormat(res.data.data)
-          //   this.permFormVisible=true
-          // })
+        console.log("res.data.data",res.data.data)
+          this.checkNodes = res.data.data.permIds
+         console.log('checkNodes',this.checkNodes)
+          permApi.list({type:0,pid:null}).then(r => {
+            this.treeData = commonApi.transformTozTreeFormatPid(r.data.data)
+            this.permFormVisible=true
+          })
        })
     },
     handlerAdd() {
