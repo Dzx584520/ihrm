@@ -4,6 +4,7 @@ import com.ihrm.common.controller.BaseController;
 import com.ihrm.common.entity.PageResult;
 import com.ihrm.common.entity.Result;
 import com.ihrm.common.entity.ResultCode;
+import com.ihrm.common.utils.JwtUtil;
 import com.ihrm.company.service.CompanyService;
 import com.ihrm.doman.company.Company;
 import com.ihrm.doman.company.response.DeptListResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     /**
      * 新增用户
@@ -123,4 +128,18 @@ public class UserController extends BaseController {
         return new Result(ResultCode.SUCCESS);
     }
 
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public Result login(@RequestBody Map<String,String> map){
+        User user = userService.findByMobile(map.get("mobile"));
+        if(user == null || !user.getPassword().equals(map.get("password"))){
+            return new Result(ResultCode.MOBILEORPASSWORDERROR);
+        }else{
+            Map<String,Object> map1 = new HashMap<>();
+            map1.put("companyId",user.getCompanyId());
+            map1.put("companyName",user.getCompanyName());
+            jwtUtil.createJWT(user.getId(), user.getUsername(),map1);
+        }
+
+        return new Result();
+    }
 }

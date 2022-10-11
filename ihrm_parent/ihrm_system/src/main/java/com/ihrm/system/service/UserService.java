@@ -133,4 +133,12 @@ public class UserService extends BaseService {
         user.setRoles(roles);
         userDao.save(user);
     }
+
+    /**
+     ** 根据mobile查询手机号
+     */
+    public User findByMobile(String mobile){
+        User user = userDao.findByMobile(mobile);
+        return user;
+    }
 }

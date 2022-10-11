@@ -1,6 +1,7 @@
 package com.ihrm.system;
 
 import com.ihrm.common.utils.IdWorker;
+import com.ihrm.common.utils.JwtUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -12,7 +13,10 @@ public class SystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SystemApplication.class, args);
     }
-
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil();
+    }
     @Bean
     public IdWorker idWorkker() {
         return new IdWorker();
