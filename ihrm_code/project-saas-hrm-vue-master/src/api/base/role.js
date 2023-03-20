@@ -15,4 +15,4 @@ export const update = data => createAPI(`/sys/role/${data.id}`, 'put', data)
 export const saveOrUpdate = data => {return data.id?update(data):add(data)}
 export const assignPrem = data => createAPI(`/sys/role/assignPrem`, 'put', data)
 
-export const roleList = data => createAPI(`/sys/role/list`,'get',data)
+export const findAll = data => createAPI(`/sys/role/list`,'get',data)
